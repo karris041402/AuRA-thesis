@@ -67,6 +67,8 @@ async function readProcessingJob(response: Response): Promise<AssessmentProcessi
       typeof result.modelVersion !== 'string' || typeof result.generatedAt !== 'string' ||
       ('explanation' in result && result.explanation !== null && typeof result.explanation !== 'string') ||
       ('recommendation' in result && result.recommendation !== null && typeof result.recommendation !== 'string') ||
+      ('totalScore' in result && result.totalScore !== null && typeof result.totalScore !== 'number') ||
+      ('maxScore' in result && result.maxScore !== null && typeof result.maxScore !== 'number') ||
       ('influenceMethod' in result && result.influenceMethod !== null && result.influenceMethod !== 'sometimes-one-at-a-time') ||
       !probabilities || typeof probabilities !== 'object')
       throw new Error('AuRA returned an invalid model result.')

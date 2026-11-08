@@ -87,7 +87,14 @@ export function AssessmentResult({
         <span className="result-feature-label">
           {copy.resultSelectedCategory}
         </span>
-        <strong className="result-category">{result.category}</strong>
+        <div className="result-feature-value">
+          <strong className="result-category">{result.category}</strong>
+          {result.totalScore != null && result.maxScore != null && (
+            <span className="result-score">
+              {copy.resultTotalScore}: <strong>{result.totalScore}/{result.maxScore}</strong>
+            </span>
+          )}
+        </div>
       </section>
       <section className="result-probabilities" aria-label={copy.resultSupport}>
         <div className="result-section-heading">

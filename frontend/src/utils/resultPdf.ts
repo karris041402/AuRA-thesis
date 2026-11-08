@@ -101,6 +101,11 @@ export async function downloadResultPdf(
   doc.setFontSize(18).setTextColor(...BLUE)
   doc.text(result.category, PAGE.width - PAGE.margin - 5, y + 9.4, { align: 'right' })
   y += 20
+  if (result.totalScore != null && result.maxScore != null) {
+    doc.setFont('helvetica', 'bold').setFontSize(10).setTextColor(...GREY)
+    doc.text(`${copy.resultTotalScore}: ${result.totalScore}/${result.maxScore}`, PAGE.width - PAGE.margin, y - 3, { align: 'right' })
+    y += 4
+  }
 
   // Breakdown
   heading(copy.resultSupport)

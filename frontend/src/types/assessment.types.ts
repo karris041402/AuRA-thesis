@@ -48,6 +48,8 @@ export interface AssessmentResult {
   }>
   influenceMethod?: 'sometimes-one-at-a-time' | null
   indicatorResponses?: AssessmentIndicatorResponse[]
+  totalScore?: number | null
+  maxScore?: number | null
 }
 
 export interface AssessmentProcessingJob {

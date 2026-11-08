@@ -157,6 +157,8 @@ class AssessmentResultResponse(BaseModel):
     influential_indicators: list[InfluentialIndicatorResponse] = Field(default_factory=list)
     influence_method: Literal["sometimes-one-at-a-time"] | None = None
     indicator_responses: list[IndicatorResponse] = Field(default_factory=list)
+    total_score: int | None = None
+    max_score: int | None = None
 
 
 def _user_id(request: Request, auth: AuthService) -> UUID:
@@ -285,6 +287,8 @@ def _processing_response(
     result = AssessmentResultResponse.model_validate(job.result) if job.result is not None else None
     if result is not None:
         result.indicator_responses = _indicator_responses(record, answers)
+        result.total_score = sum(answer.structured_score for answer in answers)
+        result.max_score = 2 * len(record.questions_snapshot)
     return ProcessingJobResponse(
         id=job.id,
         assessment_id=job.assessment_id,

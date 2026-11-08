@@ -1756,6 +1756,22 @@ p {
   border-color: #f4d8d4;
 }
 
+.result-feature-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.result-score {
+  color: #5f7188;
+  font-size: var(--font-base);
+}
+
+.result-score strong {
+  color: inherit;
+}
+
 .result-feature-label {
   color: #5f7188;
   font-size: var(--font-base);
