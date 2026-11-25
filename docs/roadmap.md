@@ -1,6 +1,6 @@
 # AuRA development roadmap
 
-Last reviewed: 2026-10-31
+Last reviewed: 2026-11-20
 
 This is the current completion roadmap. It distinguishes working frontend demonstrations from production functionality. The database blueprint remains in [AuRA_Database_Development_Plan.md](../documentation/AuRA_Database_Development_Plan.md); its schemas and technical recommendations are proposals, not completed infrastructure.
 
@@ -80,7 +80,7 @@ Acceptance: implemented destinations work within the frontend; account deletion 
 
 The frontend implementation milestone is delivered. Remaining frontend work is external source verification, clinical/Filipino resource review, approved policy/contact content and physical-device keyboard testing. These remain unchecked above.
 
-The backend auth, onboarding and assessment-storage slices are implemented in `backend/`: FastAPI, PostgreSQL-backed sessions, versioned consent, eligibility, bilingual questionnaire snapshots, answer progression and owner-scoped History. Migration `20261024_03` is applied to local `aura_db`. The frontend calls these APIs through Vite. HTTPS origins under `*.trycloudflare.com` are now accepted dynamically by the request-origin guard and credentialed CORS; the backend cookie must be Secure and the current tunnel must be opened with HTTPS. Stage 3.1 and 3.2 artifacts were regenerated locally from 3,137 consented records on 2026-10-30; restart backend and check a new live result before claiming the backend loaded those artifacts. Training scripts now print metric comparison tables and save PNG dashboards to ignored `machine-learning/reports/`. Stage 2.3 model evaluation and clinical validation remain pending.
+The backend auth, onboarding and assessment-storage slices are implemented in `backend/`: FastAPI, PostgreSQL-backed sessions, versioned consent, eligibility, bilingual questionnaire snapshots, answer progression and owner-scoped History. Migration `20261024_03` is applied to local `aura_db`. The frontend calls these APIs through Vite. HTTPS origins under `*.trycloudflare.com` are now accepted dynamically by the request-origin guard and credentialed CORS; the backend cookie must be Secure and the current tunnel must be opened with HTTPS. Stage 3.1 and 3.2 artifacts were regenerated locally from 3,137 consented records on 2026-11-20; the metrics matched the 2026-10-30 run. Restart backend and check a new live result before claiming the backend loaded those artifacts. Training scripts now print metric comparison tables and save PNG dashboards to ignored `machine-learning/reports/`. Stage 2.3 model evaluation and clinical validation remain pending.
 
 ## 3. Backend API and real identity
 
@@ -152,16 +152,18 @@ Dependencies: the 53-entry knowledge base, a local Ollama install with `bge-m3`,
 - [x] Make source labels in information-chat answers clickable (`frontend/src/data/sourceLinks.ts`); unverified sources stay plain text.
 - [x] Prepare `info_chat/data/question_collection_template.xlsx` (53 intents × 10 blank question columns) for the client.
 - [x] Answer when confidence is high, show a "Did you mean" list when it is medium, and show the fixed fallback message when it is low or the message is out of scope.
-- [ ] Collect real questions from the client with the Excel template (6 to 10 per intent, plus 100 to 150 out-of-scope), with consent and no personal details; label them by intent.
-- [ ] Retrain, tune the thresholds on validation, and report test accuracy, macro F1, out-of-scope rejection and the keyword-matcher baseline on the same held-out questions. Until then no accuracy is claimed.
-- [ ] Merge or sharpen near-duplicate intents (the two "chatbot diagnose" entries; the positive and negative screening-result entries).
+- [x] Collect real questions from the client with the Excel template: 25 per intent (two rounds) and 150 out-of-scope, 1,475 in total in `data/collected_questions.csv`. Consent and de-identification of the sources still to be confirmed with the client.
+- [x] Retrain on the collected questions (60/20/20 per intent), tune C and the answer threshold on validation, and report held-out test results: accuracy 81.36%, macro F1 0.8097, in-scope answered correctly 67.17%, out-of-scope rejected 93.33% (threshold 0.50). Backend restarted with the new artifact on 2026-11-04.
+- [ ] Run the old keyword matcher on the same test questions as a baseline, and report 5-fold cross-validation next to the test split.
+- [ ] Review labels: the client checks `info_chat/data/label_review.xlsx` (92 questions the model got wrong in round 1); apply corrections and retrain.
+- [ ] Merge or sharpen overlapping intents: the "characteristics" group (kb-03, 09, 10, 11, 12, 13, 14), kb-02/kb-05, kb-20/kb-23, kb-50/kb-36/kb-29, the two "chatbot diagnose" entries, and the positive and negative screening-result entries.
 - [ ] Optional AI paraphrase of training seeds only, reviewed by a person and disclosed. Validation and test questions must be real and human-written.
 - [ ] Confirm with the adviser or panel that a pretrained encoder with our own trained head is acceptable; otherwise switch to TF-IDF character n-grams with a larger paraphrase dataset.
 - [ ] Make suggestions tappable (new chat action ids in the backend schema), pick the reply language from the message or setting, and decide on consented logging of low-confidence questions.
 - [ ] Add verified links for "Allison et al." and "Wetherby et al.", and open the CDC/publisher links by hand to confirm them.
 - [ ] Document deployment (`ollama pull bge-m3` on the backend host), measure latency, and add training-script tests and a stored evaluation report.
 
-Acceptance: the endpoint and fallback work now. The model is not considered evaluated until it is retrained on collected questions and its held-out metrics are recorded. It selects among stored answers only, has no conversation memory, and makes no medical claims.
+Acceptance: the endpoint and fallback work now. Held-out metrics are recorded (81.36% accuracy, 93.33% out-of-scope rejected); the model is not considered final until labels are reviewed, overlapping intents are resolved and the keyword baseline is reported. It selects among stored answers only, has no conversation memory, and makes no medical claims.
 
 ## 6. Dataset, training and model evaluation
 
