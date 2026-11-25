@@ -1,0 +1,163 @@
+{
+  "stage": "3.2 equal-weight soft voting",
+  "created_at": "2026-11-20T04:35:35.395776+00:00",
+  "source_workbooks": [
+    "AURA-DATASET.xlsx",
+    "AURA-DATASET-2.xlsx",
+    "AURA-DATASET-3.xlsx"
+  ],
+  "source_sheets": {
+    "AURA-DATASET.xlsx": [
+      "RAW DATA"
+    ],
+    "AURA-DATASET-2.xlsx": [
+      "Low",
+      "Moderate",
+      "High"
+    ],
+    "AURA-DATASET-3.xlsx": [
+      "RAW DATA"
+    ]
+  },
+  "records_used": 3137,
+  "split": {
+    "train_rows": 2195,
+    "validation_rows": 471,
+    "test_rows": 471,
+    "random_state": 42,
+    "ratios": {
+      "train": 0.7,
+      "validation": 0.15,
+      "test": 0.15
+    }
+  },
+  "models": [
+    "logistic_regression",
+    "random_forest",
+    "xgboost"
+  ],
+  "voting": "unweighted arithmetic mean of predict_proba outputs",
+  "class_order": [
+    "Low",
+    "Moderate",
+    "High"
+  ],
+  "validation": {
+    "accuracy": 0.9808917197452229,
+    "per_class": {
+      "Low": {
+        "precision": 0.9877300613496932,
+        "recall": 0.9817073170731707,
+        "f1-score": 0.9847094801223242,
+        "support": 164.0
+      },
+      "Moderate": {
+        "precision": 0.9496402877697842,
+        "recall": 0.9850746268656716,
+        "f1-score": 0.967032967032967,
+        "support": 134.0
+      },
+      "High": {
+        "precision": 1.0,
+        "recall": 0.976878612716763,
+        "f1-score": 0.9883040935672515,
+        "support": 173.0
+      },
+      "accuracy": 0.9808917197452229,
+      "macro avg": {
+        "precision": 0.9791234497064925,
+        "recall": 0.9812201855518685,
+        "f1-score": 0.9800155135741809,
+        "support": 471.0
+      },
+      "weighted avg": {
+        "precision": 0.9814002730838657,
+        "recall": 0.9808917197452229,
+        "f1-score": 0.9810008078760366,
+        "support": 471.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        161,
+        3,
+        0
+      ],
+      [
+        2,
+        132,
+        0
+      ],
+      [
+        0,
+        4,
+        169
+      ]
+    ],
+    "class_order": [
+      "Low",
+      "Moderate",
+      "High"
+    ]
+  },
+  "test": {
+    "accuracy": 0.970276008492569,
+    "per_class": {
+      "Low": {
+        "precision": 0.9815950920245399,
+        "recall": 0.975609756097561,
+        "f1-score": 0.9785932721712538,
+        "support": 164.0
+      },
+      "Moderate": {
+        "precision": 0.9285714285714286,
+        "recall": 0.9701492537313433,
+        "f1-score": 0.948905109489051,
+        "support": 134.0
+      },
+      "High": {
+        "precision": 0.9940476190476191,
+        "recall": 0.9653179190751445,
+        "f1-score": 0.9794721407624634,
+        "support": 173.0
+      },
+      "accuracy": 0.970276008492569,
+      "macro avg": {
+        "precision": 0.9680713798811958,
+        "recall": 0.9703589763013496,
+        "f1-score": 0.9689901741409228,
+        "support": 471.0
+      },
+      "weighted avg": {
+        "precision": 0.9710836616047434,
+        "recall": 0.970276008492569,
+        "f1-score": 0.9704697699777592,
+        "support": 471.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        160,
+        4,
+        0
+      ],
+      [
+        3,
+        130,
+        1
+      ],
+      [
+        0,
+        6,
+        167
+      ]
+    ],
+    "class_order": [
+      "Low",
+      "Moderate",
+      "High"
+    ]
+  },
+  "interpretation": "Probabilities describe model support for provisional score-derived categories, not the probability that a child has ASD. Categories are calculated from the same 13 feature scores, so this evaluates reproduction of preliminary cutoffs, not independent clinical prediction.",
+  "test_usage": "Final ensemble evaluation only; do not use these results for model tuning."
+}

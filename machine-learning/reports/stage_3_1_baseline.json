@@ -1,0 +1,253 @@
+{
+  "stage": "3.1 multi-model classification baseline",
+  "created_at": "2026-11-20T04:34:54.457689+00:00",
+  "source_workbooks": [
+    "AURA-DATASET.xlsx",
+    "AURA-DATASET-2.xlsx",
+    "AURA-DATASET-3.xlsx"
+  ],
+  "source_sheets": {
+    "AURA-DATASET.xlsx": [
+      "RAW DATA"
+    ],
+    "AURA-DATASET-2.xlsx": [
+      "Low",
+      "Moderate",
+      "High"
+    ],
+    "AURA-DATASET-3.xlsx": [
+      "RAW DATA"
+    ]
+  },
+  "training_rows": 3137,
+  "excluded_without_consent": 313,
+  "train_rows": 2195,
+  "validation_rows": 471,
+  "test_rows": 471,
+  "feature_order": [
+    "Q1",
+    "Q2",
+    "Q3",
+    "Q4",
+    "Q5",
+    "Q6",
+    "Q7",
+    "Q8",
+    "Q9",
+    "Q10",
+    "Q11",
+    "Q12",
+    "Q13"
+  ],
+  "class_order": [
+    "Low",
+    "Moderate",
+    "High"
+  ],
+  "class_counts": {
+    "Low": 1093,
+    "Moderate": 892,
+    "High": 1152
+  },
+  "class_encoding": {
+    "Low": 0,
+    "Moderate": 1,
+    "High": 2
+  },
+  "target_source": "Ground Truth Labels; category worksheets checked where present",
+  "target_cutoffs": {
+    "Low": "0-8",
+    "Moderate": "9-11",
+    "High": "12-26"
+  },
+  "random_state": 42,
+  "split_ratio": {
+    "train": 0.7,
+    "validation": 0.15,
+    "test": 0.15
+  },
+  "test_set_status": "Reserved for final evaluation in Stage 3.2; not used to compare or tune Stage 3.1 models.",
+  "models": {
+    "logistic_regression": {
+      "validation": {
+        "accuracy": 0.9978768577494692,
+        "per_class": {
+          "Low": {
+            "precision": 1.0,
+            "recall": 0.9939024390243902,
+            "f1-score": 0.9969418960244648,
+            "support": 164.0
+          },
+          "Moderate": {
+            "precision": 0.9925925925925926,
+            "recall": 1.0,
+            "f1-score": 0.9962825278810409,
+            "support": 134.0
+          },
+          "High": {
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1-score": 1.0,
+            "support": 173.0
+          },
+          "accuracy": 0.9978768577494692,
+          "macro avg": {
+            "precision": 0.9975308641975308,
+            "recall": 0.9979674796747968,
+            "f1-score": 0.9977414746351686,
+            "support": 471.0
+          },
+          "weighted avg": {
+            "precision": 0.9978925847291028,
+            "recall": 0.9978768577494692,
+            "f1-score": 0.9978775577156512,
+            "support": 471.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            163,
+            1,
+            0
+          ],
+          [
+            0,
+            134,
+            0
+          ],
+          [
+            0,
+            0,
+            173
+          ]
+        ],
+        "class_order": [
+          "Low",
+          "Moderate",
+          "High"
+        ]
+      }
+    },
+    "random_forest": {
+      "validation": {
+        "accuracy": 0.910828025477707,
+        "per_class": {
+          "Low": {
+            "precision": 0.9235294117647059,
+            "recall": 0.9573170731707317,
+            "f1-score": 0.9401197604790419,
+            "support": 164.0
+          },
+          "Moderate": {
+            "precision": 0.8432835820895522,
+            "recall": 0.8432835820895522,
+            "f1-score": 0.8432835820895522,
+            "support": 134.0
+          },
+          "High": {
+            "precision": 0.9520958083832335,
+            "recall": 0.9190751445086706,
+            "f1-score": 0.9352941176470588,
+            "support": 173.0
+          },
+          "accuracy": 0.910828025477707,
+          "macro avg": {
+            "precision": 0.906302934079164,
+            "recall": 0.9065585999229849,
+            "f1-score": 0.906232486738551,
+            "support": 471.0
+          },
+          "weighted avg": {
+            "precision": 0.9111919286193444,
+            "recall": 0.910828025477707,
+            "f1-score": 0.9107972888991592,
+            "support": 471.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            157,
+            7,
+            0
+          ],
+          [
+            13,
+            113,
+            8
+          ],
+          [
+            0,
+            14,
+            159
+          ]
+        ],
+        "class_order": [
+          "Low",
+          "Moderate",
+          "High"
+        ]
+      }
+    },
+    "xgboost": {
+      "validation": {
+        "accuracy": 0.910828025477707,
+        "per_class": {
+          "Low": {
+            "precision": 0.927710843373494,
+            "recall": 0.9390243902439024,
+            "f1-score": 0.9333333333333333,
+            "support": 164.0
+          },
+          "Moderate": {
+            "precision": 0.8538461538461538,
+            "recall": 0.8283582089552238,
+            "f1-score": 0.8409090909090909,
+            "support": 134.0
+          },
+          "High": {
+            "precision": 0.9371428571428572,
+            "recall": 0.9479768786127167,
+            "f1-score": 0.9425287356321839,
+            "support": 173.0
+          },
+          "accuracy": 0.910828025477707,
+          "macro avg": {
+            "precision": 0.9062332847875018,
+            "recall": 0.9051198259372809,
+            "f1-score": 0.9055903866248695,
+            "support": 471.0
+          },
+          "weighted avg": {
+            "precision": 0.910160673491193,
+            "recall": 0.910828025477707,
+            "f1-score": 0.9104160427024472,
+            "support": 471.0
+          }
+        },
+        "confusion_matrix": [
+          [
+            154,
+            10,
+            0
+          ],
+          [
+            12,
+            111,
+            11
+          ],
+          [
+            0,
+            9,
+            164
+          ]
+        ],
+        "class_order": [
+          "Low",
+          "Moderate",
+          "High"
+        ]
+      }
+    }
+  },
+  "limitation": "The workbook labels are derived from the same 13 scores used as features. These metrics describe reproduction of preliminary score cutoffs, not independent clinical or ASD-risk prediction."
+}

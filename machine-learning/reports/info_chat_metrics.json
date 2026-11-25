@@ -1,0 +1,14 @@
+{
+  "encoder": "bge-m3",
+  "classes": 57,
+  "train_rows": 1077,
+  "validation_rows": 294,
+  "test_rows": 294,
+  "C": 100.0,
+  "answer_threshold": 0.5,
+  "suggest_threshold": 0.1,
+  "test_accuracy": 0.8163,
+  "test_macro_f1": 0.8114,
+  "in_scope_answered_correctly": 0.7094,
+  "out_of_scope_rejected": 1.0
+}
